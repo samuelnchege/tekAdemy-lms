@@ -1,11 +1,11 @@
 import { Router } from 'express';
+import { sendSuccess } from '../utils/apiResponse.js';
 
 const router = Router();
 
 router.get('/health', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'TekAdemy LMS API is running.'
+  return sendSuccess(res, {
+    message: 'TekAdemy LMS API is running.',
   });
 });
 
