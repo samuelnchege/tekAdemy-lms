@@ -42,9 +42,22 @@ const updateUser = asyncHandler(async (req, res) => {
   });
 });
 
+const updateUserStatus = asyncHandler(async (req, res) => {
+  const user = await usersService.updateUserStatus(
+    req.params.id,
+    req.body.isActive
+  );
+
+  return sendSuccess(res, {
+    message: 'User status updated successfully.',
+    data: user,
+  });
+});
+
 export default {
   createUser,
   getUsers,
   getUserById,
   updateUser,
+  updateUserStatus,
 };

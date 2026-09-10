@@ -99,9 +99,35 @@ const updateUser = async (userId, updateData) => {
   return user;
 };
 
+const updateUserStatus = async (userId, isActive) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new AppError('Invalid user ID.', 400);
+  }
+
+  if (typeof isActive !== 'boolean') {
+    throw new AppError('isActive must be a boolean.', 400);
+  }
+
+  const user = await User.findByIdAndUpdate(
+    userId,
+    { isActive },
+    {
+      new: true,
+      runValidators: true,
+    }
+  ).select('-password');
+
+  if (!user) {
+    throw new AppError('User not found.', 404);
+  }
+
+  return user;
+};
+
 export default {
   createUser,
   getUsers,
   getUserById,
   updateUser,
+  updateUserStatus,
 };

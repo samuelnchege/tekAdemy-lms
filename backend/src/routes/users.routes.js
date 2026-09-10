@@ -27,6 +27,13 @@ router.post(
 );
 
 router.patch(
+  '/:id/status',
+  authenticate,
+  authorize('admin'),
+  usersController.updateUserStatus
+);
+
+router.patch(
   '/:id',
   authenticate,
   authorize('admin'),
